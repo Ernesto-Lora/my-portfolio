@@ -1,0 +1,22 @@
+.navbar-custom {
+    background-color: #242f65;
+}
+.navbar-custom .navbar-brand,
+.navbar-custom .nav-link {
+    color: #ffffff;
+    font-size: large;
+}
+.navbar-custom .nav-link:hover {
+    color: #d1d1d1;
+}
+
+#presentation{
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+}
+
+#me{
+    width: 400px;
+    height: 400px;
+}

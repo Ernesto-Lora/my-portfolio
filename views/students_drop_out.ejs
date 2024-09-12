@@ -1,0 +1,38 @@
+<%- include("partials/header.ejs") %>
+
+<h1>Predict Students' Dropout and Academic Success</h1>
+
+<p>In this project we anylize the data from the 
+    <a href="https://archive.ics.uci.edu/dataset/697/predict+students+dropout+and+academic+success">
+        Students Dropout Repository
+    </a>
+    where data were collected from a higher education institution, encompassing students
+     from various undergraduate programs. The dataset includes academic history, 
+     demographic information, and socio-economic factors. Our goal is to predict whether 
+     a student will fail or succeed.
+</p>
+
+<h2>Exploratoty Data Analysis (EDA)</h2>
+
+<p>How does the distribution of enrollment ages vary across different outcomes (dropout, enrolled, graduate), and what insights can be gained from visualizing these distributions?</p>
+
+<img src="/images/students_dropout/age-hist.svg" alt="admission histogram">
+
+<p>We can see that the dropout rate among individuals aged 25 to 40 is higher than in other age groups within this range. This may suggest that as age increases, the likelihood of graduating decreases.</p>
+
+<p>Are there any noticeable differences in enrollment patterns, as course, between students who dropout and those who successfully graduate?</p>
+
+<img src="/images/students_dropout/course-bar.svg" alt="course bar plot">
+<p>We observe distinct trends across different courses. For instance, Informatics Engineering (9119) and Equinculture (9130) show a higher likelihood of student dropout, whereas Nursing (9500) and Social Service (9238) exhibit a greater probability of student graduation.</p>
+
+<p>How do the distributions of admission grades differ between students who dropout, those who enroll, and those who graduate? Visualizing these distributions could shed light on the relationship between academic performance upon entry and subsequent outcomes.</p>
+
+<img src="/images/students_dropout/admission-hist.svg" alt="admission grade histogram">
+
+<p>Although the distributions appear similar, the Dropout group shows a higher concentration at the minimum grade.</p>
+
+<p> Are there any interesting visual patterns or clusters that emerge when plotting multiple demographic variables (e.g., gender, nationality, parental qualifications) against each other in relation to student outcomes? Using techniques such as scatter plots or heatmaps could reveal insightful relationships.</p>
+
+<img src="/images/students_dropout/gender.svg" alt="gender barplot">
+
+<p>As we can see the Male group has considerable more population in the dropout group.</p>
