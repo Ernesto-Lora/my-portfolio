@@ -14,25 +14,65 @@
 
 <h2>Exploratoty Data Analysis (EDA)</h2>
 
-<p>How does the distribution of enrollment ages vary across different outcomes (dropout, enrolled, graduate), and what insights can be gained from visualizing these distributions?</p>
+<h3>How does the distribution of enrollment ages vary across different outcomes?</h3>
 
 <img src="/images/students_dropout/age-hist.svg" alt="admission histogram">
 
 <p>We can see that the dropout rate among individuals aged 25 to 40 is higher than in other age groups within this range. This may suggest that as age increases, the likelihood of graduating decreases.</p>
 
-<p>Are there any noticeable differences in enrollment patterns, as course, between students who dropout and those who successfully graduate?</p>
-
+<h3>Are there any noticeable differences in the course taken, between students who dropout and those who successfully graduate?</h3>
 <img src="/images/students_dropout/course-bar.svg" alt="course bar plot">
 <p>We observe distinct trends across different courses. For instance, Informatics Engineering (9119) and Equinculture (9130) show a higher likelihood of student dropout, whereas Nursing (9500) and Social Service (9238) exhibit a greater probability of student graduation.</p>
 
-<p>How do the distributions of admission grades differ between students who dropout, those who enroll, and those who graduate? Visualizing these distributions could shed light on the relationship between academic performance upon entry and subsequent outcomes.</p>
+<h3>How do the distributions of admission grades differ between students who dropout, those who enroll, and those who graduate?</h3>
 
 <img src="/images/students_dropout/admission-hist.svg" alt="admission grade histogram">
 
 <p>Although the distributions appear similar, the Dropout group shows a higher concentration at the minimum grade.</p>
 
-<p> Are there any interesting visual patterns or clusters that emerge when plotting multiple demographic variables (e.g., gender, nationality, parental qualifications) against each other in relation to student outcomes? Using techniques such as scatter plots or heatmaps could reveal insightful relationships.</p>
+<h3> Are there any interesting patterns when plotting multiple demographic variables (e.g., gender, nationality, parental qualifications) against each other in relation to student outcomes?</h3>
+
 
 <img src="/images/students_dropout/gender.svg" alt="gender barplot">
 
 <p>As we can see the Male group has considerable more population in the dropout group.</p>
+
+<img src="/images/students_dropout/mother.svg" alt="mother occupation barplot">
+
+<p>After filtering the most common occupations, it's notable that 'Student' (0) and 'Other situation' (90) have a larger representation among the dropped out group of students.</p>
+
+<img src="/images/students_dropout/father.svg" alt="father occupation barplot">
+
+<p>Once again, 'Student' (0) and 'Other situation' (90) show a higher presence in the dropout group.</p>
+
+<h3>How does it look the distribution of all curriculum credicts depending on the student cathegory?</h3>
+
+<img src="/images/students_dropout/units1st.svg" alt="units 1st semester histograms">
+
+<img src="/images/students_dropout/units2nd.svg" alt="units 2nd semester histograms">
+
+<p>As observed, the dropout group has a significant number of individuals with zero completed curricular units.</p>
+
+<h2>Modeling</h2>
+
+<p>We have implemented three machine learning models. The first, a Decision Tree Classifier, serves as our baseline model providing a simple and interpretable approach that helps us evaluate the performance of more advanced models. The second, Logistic Regression, is a more robust model, particularly effective for binary classification when the relationship between features and the outcome is approximately linear. Finally, the Random Forest Classifier offers a more sophisticated solution by combining multiple decision trees to improve accuracy and reduce overfitting.
+</p>
+
+<p>What we see bellow are the confusion matrices for the three respective models.</p>
+
+<img src="/images/students_dropout/confusion_decision_tree.svg" alt="decision tree">
+<p class="accuracy"> Global Accuracy of the model: 0.68 </p>
+
+<img src="/images/students_dropout/confusion_logistic.svg" alt="logistic regression">
+<p class="accuracy"> Global Accuracy of the model: 0.75 </p>
+
+<img src="/images/students_dropout/confusion_random_forest.svg" alt="random forest">
+<p class="accuracy"> Global Accuracy of the model: 0.77 </p>
+
+<p>Overall, the Random Forest Classifier delivers better performance compared to the other models. However, as seen in all confusion matrices, there is a significant imbalance in the "Graduate" and "Enrolled" groups. In other words, while the models perform well when predicting dropouts, their accuracy goes down when predicting the other categories. This discrepancy is likely due to the data imbalance itself, which skews the models' predictions.
+</p>
+
+<p>Despite this imbalance, we have developed a reliable model to analyze student situations. This is valuable for institutions, as it enables them to take proactive measures when addressing the risk of student dropouts.
+</p>
+
+<p>Thanks for reading! 🧑‍💻💕</p>
