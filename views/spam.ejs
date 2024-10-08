@@ -1,0 +1,56 @@
+<%- include("partials/header.ejs") %>
+
+<h1>SMS Spam detection </h1>
+
+<p>
+  We have a collection of spam messages gathered from the Grumbletext website, where users public spam messages. Additionally, we have randomly selected legitimate messages, which were collected for research purposes by the Department of Computer Science at the National University of Singapore.
+  <a href="https://archive.ics.uci.edu/dataset/228/sms+spam+collection"> [1] </a>
+</p>
+
+<h2>Exploratory Data Analisys</h2>
+
+<p>Let's see some sample messages: </p>
+
+<ul> Ham Message
+  <li>Nah I don't think he goes to usf, he lives around here though</li>
+  <li>Even my brother is not like to speak with me.</li>
+  <li>They treat me like aids patent.</li>
+  <li>I'm gonna be home soon and I don't want to talk about this stuff anymore tonight, k?</li>
+  <li>I've cried enough today</li>
+  <li>I HAVE A DATE ON SUNDAY WITH WILL!!</li>
+  <li>Oh k...I'm watching here :) </li>
+</ul>
+
+
+<ul> Spam Messages
+  <li>Free entry in 2 a wkly comp to win FA Cup final tkts 21st May 2005. Text FA to 87121 to receive entry question (std txt rate) T&amp;C's apply 08452810075 over 18's</li>
+  <li>WINNER!! As a valued network customer, you have been selected to receive a £900 prize reward! To claim call 09061701461. Claim code KL341. Valid 12 hours only.</li>
+  <li>SIX chances to win CASH! From 100 to 20,000 pounds. Text CSH11 and send to 87575. Cost 150p/day, 6 days, 16+ T&amp;C's apply. Reply HL for info.</li>
+  <li>URGENT! You have won a 1-week FREE membership in our £100,000 Prize Jackpot! Text the word: CLAIM to No: 81010. T&amp;C's www.dbuk.net LCCLTD POBOX 4403LDNW1A7RW18</li>
+  <li>Thanks for your subscription to Ringtone UK. Your mobile will be charged £5/month. Please confirm by replying YES or NO. If you reply NO, you will not be charged.</li>
+</ul>
+
+<p>We can see that the legitimate (Ham) messages come from casual conversations, while the spam messages attempt to fool the recipient. </p> 
+
+  <h2>Model </h2>
+  
+<p>Our approach is to vectorize the sentences, where each unique word will be represented as a binary column, as shown in the next figure.</p>
+
+<img src="/images/spam_detection/vector.svg" alt="">
+
+<p>This enable us to take each word as a numeric feature and lead us to
+  use Regressions. 
+</p>
+
+<img src="/images/spam_detection/cm-logistic.svg" alt="">
+
+
+<img src="/images/spam_detection/cm-random-forest.svg" alt="">
+<p> Accuracy: 0.72</p>
+
+
+<p>In the context of this particular problem, a false positive incurs significant costs for the Credit Card Company. Our baseline model achieves an accuracy of 0.73 but results in many false positives. The Random Forest model shows a significant improvement, achieving an accuracy of 0.81 and producing far fewer false positives. Lastly, the Neural Network approach does not outperform as expected, but it provides a solid accuracy of 0.81, similar to the Random Forest approach.
+</p>
+<p> We have successfully trained a useful and robust model to predict customer default payments </p>
+
+<p>Thanks for reading! 🧑‍💻💕</p>

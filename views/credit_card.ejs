@@ -1,0 +1,55 @@
+<%- include("partials/header.ejs") %>
+
+<h1>Predict default of credit card clients</h1>
+
+<p>
+  This dataset from the UCI Machine learning repository <a href="https://archive.ics.uci.edu/dataset/350/default+of+credit+card+clients"> [1]</a> represent the default payment from Taiwan custumers.
+   We are aimed to predict the payment based on independet variables from the custumers.
+
+</p>
+
+<h2>Exploratory Data Analisys</h2>
+
+<img src="/images/credit_card/age-dist.svg" alt="">
+
+<p>We can see that the No Payment group has a smooth histogram that does lead to a visible pattern. On the other hand, the Payment group shows a fat tail, indicating that an older popullation is more representative in this group.</p>
+
+<img src="/images/credit_card/credic-limit-dist.svg" alt="">
+<p>
+  As we can expected, lower credit amounts are more likely to be paid, while higher credit amounts are less likely to be paid.</p>
+
+  <img src="/images/credit_card/sex.svg" alt="">
+  <p>Just by looking at the proportion, there is a slightly higher probability that a male customer will pay the credit, but it is not a statistically significant difference.</p>
+
+  <img src="/images/credit_card/education.svg" alt="">
+  <p>Unexpectedly, the No Payment group has a higher population of individuals from Graduate School.</p>
+
+  <img src="/images/credit_card/marriage.svg" alt="">
+  <p>The Payment group has a slightly higher population of married customers, but again, it is not statistically significant</p>
+
+<img src="/images/credit_card/repayment-hist.svg" alt="">
+<p>The negative status represents timely payment, while the positive status indicates a delay in payment, each number representing the amount of months of delay. Notably, the No Payment group tends to delay their payments.</p>
+
+
+<img src="/images/credit_card/bill-statement.svg" alt="">
+<p>As expected, the higher the bill amount, the less likely it is to be paid.</p>
+
+
+<img src="/images/credit_card/previus-payment.svg" alt="">
+<p>No surprise from the previous distribution, payments tend to be shorter in the Payment group</p>
+
+<h2>Model </h2>
+
+
+<img src="/images/credit_card/cm-decision-tree.svg" alt="">
+<p> Accuracy: 0.72</p>
+<img src="/images/credit_card/cm-NN.svg" alt="">
+<p> Accuracy: 0.82</p>
+<img src="/images/credit_card/cm-random-forest.svg" alt="">
+<p> Accuracy: 0.82</p>
+
+<p>In the context of this particular problem, a false positive incurs significant costs for the Credit Card Company. Our baseline model achieves an accuracy of 0.73 but results in many false positives. The Random Forest model shows a significant improvement, achieving an accuracy of 0.81 and producing far fewer false positives. Lastly, the Neural Network approach does not outperform as expected, but it provides a solid accuracy of 0.81, similar to the Random Forest approach.
+</p>
+<p> We have successfully trained a useful and robust model to predict customer default payments </p>
+
+<p>Thanks for reading! 🧑‍💻💕</p>

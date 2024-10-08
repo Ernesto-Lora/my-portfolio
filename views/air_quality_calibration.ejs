@@ -1,0 +1,169 @@
+<%- include("partials/header.ejs") %>
+
+<h1>Air Quality Sensor Calibration</h1>
+
+<p>The dataset comes from a device that monitored air quality <a href="https://archive.ics.uci.edu/dataset/360/air+quality"> [1]</a> in a polluted area at road level in an Italian city.
+    It includes hourly measurements from five sensors that detect different pollutants,
+    like carbon monoxide (CO), nitrogen oxides (NOx), and benzene.
+     These sensors collected data during a year, from March 2004 to February 2005.
+
+    The data also includes ground-truth measurements from a certified analyzer,
+    so we have a reliable reference for comparison.
+</p>
+
+<h2>Exploratory Data Analisys</h2>
+
+<p>The dataset consists of concentrations of CO, Non-Methane Hydrocarbons, Benzene, NO, and NO2. Each pollutant has been recorded by both the sensor that has to be calibrated and a certified analyzer. 
+  We'll explore the daily average time series for each pollutant measured by both the sensor and the analyzer.
+</p>
+
+<h4> Daily time series of Carbon Monoxide (CO) </h4>
+
+<img src="/images/air_quality/dayCO(GT).svg" alt="">
+<img src="/images/air_quality/dayPT08.S1(CO).svg" alt="">
+
+<h4> Daily time series of Non-Methane Hydrocarbons (NMHC) </h4>
+
+<img src="/images/air_quality/dayNMHC(GT).svg" alt="">
+<img src="/images/air_quality/dayPT08.S2(NMHC).svg" alt="">
+
+
+<h4> Daily time series of Nitrogen Dioxide (NO2) </h4>
+<img src="/images/air_quality/dayNO2(GT).svg" alt="">
+<img src="/images/air_quality/dayPT08.S4(NO2).svg" alt="">
+
+<h4> Daily time series of Nitric oxide (NO)</h4>
+<img src="/images/air_quality/dayNOx(GT).svg" alt="">
+<img src="/images/air_quality/dayPT08.S3(NOx).svg" alt="">
+
+<h4> Daily time series of Benzene (C6H6) </h4>
+<img src="/images/air_quality/dayC6H6(GT).svg" alt="">
+
+<h4> Daily time series of Ozone (O3) </h4>
+<img src="/images/air_quality/dayPT08.S5(O3).svg" alt="">
+
+
+
+<h4> Hourly time series of Carbon Monoxide (CO) </h4>
+<img src="/images/air_quality/hourCO(GT).svg" alt="">
+<img src="/images/air_quality/hourPT08.S1(CO).svg" alt="">
+
+<h4> Hourly time series of Non-Methane Hydrocarbons (NMHC) </h4>
+<img src="/images/air_quality/hourNMHC(GT).svg" alt="">
+<img src="/images/air_quality/hourPT08.S2(NMHC).svg" alt="">
+
+<h4> Hourly time series of Nitrogen Dioxide (NO2) </h4>
+<img src="/images/air_quality/hourNO2(GT).svg" alt="">
+<img src="/images/air_quality/hourPT08.S4(NO2).svg" alt="">
+
+<h4> Hourly time series of Nitric oxide (NO)</h4>
+<img src="/images/air_quality/hourNOx(GT).svg" alt="">
+<img src="/images/air_quality/hourPT08.S3(NOx).svg" alt="">
+
+<h4> Hourly time series of Benzene (C6H6) </h4>
+<img src="/images/air_quality/hourC6H6(GT).svg" alt="">
+
+<h4> Hourly time series of Ozone (O3) </h4>
+<img src="/images/air_quality/hourPT08.S5(O3).svg" alt="">
+
+<p>The time series reveal that the pollutants exhibit similar behavior, suggesting they may be correlated.
+</p>
+
+<h4> Correlation heatmap.</h4>
+
+<p>
+As expected, the time series are correlated with each other.
+</p>
+<img src="/images/air_quality/heatmap.svg" alt="">
+
+<h2>Model (Calibration)</h2>
+
+<p>As shown in the correlation heatmap, many variables are interrelated. To account for this, we applied multivariable regression, ensuring all relevant variables contribute to estimating the pollutant levels. We used a Linear Regression model as a baseline and a Random Forest Regression as our primary model.
+</p>
+
+<h3>Linear Regression Summary</h3>
+
+<table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+      <tr>
+        <th>Pollutant</th>
+        <th>Root Mean Squared Error (RMSE)</th>
+        <th>R-squared (R²)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>CO(GT)</td>
+        <td>0.287315</td>
+        <td>0.960344</td>
+      </tr>
+      <tr>
+        <td>NMHC(GT)</td>
+        <td>87.064515</td>
+        <td>0.827655</td>
+      </tr>
+      <tr>
+        <td>C6H6(GT)</td>
+        <td>0.753162</td>
+        <td>0.990470</td>
+      </tr>
+      <tr>
+        <td>NOx(GT)</td>
+        <td>23.115998</td>
+        <td>0.921530</td>
+      </tr>
+      <tr>
+        <td>NO2(GT)</td>
+        <td>12.136127</td>
+        <td>0.863646</td>
+      </tr>
+    </tbody>
+  </table>
+  
+
+<h3>Random Forest Regression</h3>
+
+<table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+      <tr>
+        <th>Pollutant</th>
+        <th>Root Mean Squared Error (RMSE)</th>
+        <th>R-squared (R²)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>CO(GT)</td>
+        <td>0.276984</td>
+        <td>0.963145</td>
+      </tr>
+      <tr>
+        <td>NMHC(GT)</td>
+        <td>56.209143</td>
+        <td>0.928166</td>
+      </tr>
+      <tr>
+        <td>C6H6(GT)</td>
+        <td>0.655126</td>
+        <td>0.992790</td>
+      </tr>
+      <tr>
+        <td>NOx(GT)</td>
+        <td>22.569703</td>
+        <td>0.925195</td>
+      </tr>
+      <tr>
+        <td>NO2(GT)</td>
+        <td>11.456405</td>
+        <td>0.878492</td>
+      </tr>
+    </tbody>
+  </table>
+
+<p>The analysis of pollutant levels using both Linear Regression and Random Forest Regression models provides valuable insights into the relationships between variables and the effectiveness of different modeling approaches.</p>
+<p>As expected, the pollutants show significant correlation, which was evident from the correlation heatmap. The presence of interrelated variables indicates that a multivariable regression approach is appropriate, allowing for a more comprehensive understanding of how each factor contributes to the overall levels of air pollutants.</p>
+<p>The Linear Regression model served as a reliable baseline, yielding strong R² values across pollutants, particularly for Benzene (C6H6) with an R² of 0.990, indicating that it explained nearly 99% of the variance in Benzene concentrations. Similarly, the model performed well for Carbon Monoxide (CO), with an R² of 0.960, showing a solid fit. However, the model was less accurate for Non-Methane Hydrocarbons (NMHC), where the R² dropped to 0.827, indicating that the linear model struggled to fully capture the variability in NMHC levels.</p>
+<p>By contrast, the Random Forest Regression model demonstrated superior performance across all pollutants. With improved R² values, the model showed that it captured more of the complex interactions between the variables. Notably, NMHC saw a significant improvement, with an R² of 0.928, highlighting the Random Forest's ability to handle nonlinear relationships more effectively. Benzene (C6H6) again performed exceptionally well with an R² of 0.993, further reinforcing the model's robustness. The slight reduction in Root Mean Squared Error (RMSE) across all pollutants also suggests improved accuracy, especially for pollutants like NMHC and NO2, where the differences were more pronounced.</p>
+<p>In conclusion, while Linear Regression provided a solid foundation for estimating pollutant levels, the Random Forest Regression model was more effective, especially for pollutants with more complex patterns like NMHC. The improved performance of the Random Forest model underscores the importance of using more sophisticated approaches when dealing with multivariate and potentially nonlinear relationships in air quality data. This enhanced accuracy can lead to more precise predictions and better decision-making when monitoring and managing air pollution levels.</p>
+
+<p>Thanks for reading! 🧑‍💻💕</p>
