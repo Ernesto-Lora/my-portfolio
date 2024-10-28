@@ -1,6 +1,7 @@
-<%- include("partials/header.ejs") %>
+<%- include("partials/header.ejs", { articleStyles: true }) %>
 
-<h1>Predict default of credit card clients</h1>
+<div id="container">
+  <h1>Predict default of credit card clients</h1>
 
 <p>
   This dataset from the UCI Machine learning repository <a href="https://archive.ics.uci.edu/dataset/350/default+of+credit+card+clients"> [1]</a> represent the default payment from Taiwan custumers.
@@ -53,3 +54,5 @@
 <p> We have successfully trained a useful and robust model to predict customer default payments </p>
 
 <p>Thanks for reading! 🧑‍💻💕</p>
+</div>
+

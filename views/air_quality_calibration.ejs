@@ -1,6 +1,7 @@
-<%- include("partials/header.ejs") %>
+<%- include("partials/header.ejs", { articleStyles: true }) %>
 
-<h1>Air Quality Sensor Calibration</h1>
+<div id="container">
+  <h1>Air Quality Sensor Calibration</h1>
 
 <p>The dataset comes from a device that monitored air quality <a href="https://archive.ics.uci.edu/dataset/360/air+quality"> [1]</a> in a polluted area at road level in an Italian city.
     It includes hourly measurements from five sensors that detect different pollutants,
@@ -167,3 +168,5 @@ As expected, the time series are correlated with each other.
 <p>In conclusion, while Linear Regression provided a solid foundation for estimating pollutant levels, the Random Forest Regression model was more effective, especially for pollutants with more complex patterns like NMHC. The improved performance of the Random Forest model underscores the importance of using more sophisticated approaches when dealing with multivariate and potentially nonlinear relationships in air quality data. This enhanced accuracy can lead to more precise predictions and better decision-making when monitoring and managing air pollution levels.</p>
 
 <p>Thanks for reading! 🧑‍💻💕</p>
+</div>
+

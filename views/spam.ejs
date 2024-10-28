@@ -1,5 +1,6 @@
-<%- include("partials/header.ejs") %>
+<%- include("partials/header.ejs", { articleStyles: true }) %>
 
+<div id="container">
 <h1>SMS Spam detection </h1>
 
 <p>
@@ -38,19 +39,20 @@
 
 <img src="/images/spam_detection/vector.svg" alt="">
 
-<p>This enable us to take each word as a numeric feature and lead us to
-  use Regressions. 
+<p>This enables us to treat each word as a numeric feature, allowing us to use Logistic Regression and Random Forest for classification.
 </p>
+<p>The performance of this models are shown in the following features.</p>
 
 <img src="/images/spam_detection/cm-logistic.svg" alt="">
-
+<p> Accuracy: 0.98</p>
 
 <img src="/images/spam_detection/cm-random-forest.svg" alt="">
-<p> Accuracy: 0.72</p>
+<p> Accuracy: 0.97</p>
 
 
-<p>In the context of this particular problem, a false positive incurs significant costs for the Credit Card Company. Our baseline model achieves an accuracy of 0.73 but results in many false positives. The Random Forest model shows a significant improvement, achieving an accuracy of 0.81 and producing far fewer false positives. Lastly, the Neural Network approach does not outperform as expected, but it provides a solid accuracy of 0.81, similar to the Random Forest approach.
-</p>
-<p> We have successfully trained a useful and robust model to predict customer default payments </p>
+<p>In the context of this problem, a false positive can be harmful to the sender, as it occurs when the model classifies a legitimate message as spam. This could result in missing important or urgent messages. Conversely, if our goal is to minimize this, we may allow some spam messages to go through. The Logistic Regression model performed excellently, with zero false positives and an overall accuracy of 0.98. Our Random Forest model also achieved great results, with no false positives and a general accuracy of 0.97.</p>
+<p> We have successfully trained a useful and robust model to classify spam messages. </p>
 
 <p>Thanks for reading! 🧑‍💻💕</p>
+</div>
+

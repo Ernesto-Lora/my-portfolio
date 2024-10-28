@@ -1,43 +1,50 @@
 <%- include("partials/header.ejs") %>
 
 <div id="presentation">
-    <img id = "me" src="images/Ernesto.jpg" alt="Me">
+    <img id="me" src="images/Ernesto.jpg" alt="Me">
     <p>
-        My name is Ernesto Lora, and I have been fascinated by science and mathematics since childhood. I earned a bachelor's degree in Physics and completed an internship at the Artificial Intelligence Institute. This experience ignited my passion for Machine Learning, specifically in applying models to solve real-world problems and understanding the intricate workflows involved in production environments.
-    </p> 
+        My name is Ernesto Lora Gonzalez, bachelor's degree in Physics. I am passionate about Machine Learning, especially in applying models to solve real-world problems and implementing them in production environments.
+    </p>
 </div>
 
+<div class="container project-list">
+    <div class="project-card">
+        <a class="nav-link" href="/students"> 
+            <img src="images/students_dropout/students_dropout.png" alt="Students">
+        </a>
+        <div class="project-info">
+            <h2>Predict Students Drop Out</h2>
+            <p>A dataset from a higher education institution that includes students' social, demographic, and academic background information. Each student is classified as either a graduate, currently enrolled, or a dropout.</p>
+        </div>
+    </div>
 
-<div>
-    <a class="nav-link" href="/students"> 
-        <img src="images/students_dropout/students_dropout.png" width="200 px" alt="Students">
-    </a>
-    <h2>Predict Students Drop Out</h2>
-    <p> A dataset from a higher education institution that includes students' social, demographic, and academic background information. Each student is classified as either a graduate, currently enrolled, or a dropout. </p>
-</div>
+    <div class="project-card">
+        <a class="nav-link" href="/air-quality"> 
+            <img src="images/air_quality/air_quality.svg" alt="Air Quality">
+        </a>
+        <div class="project-info">
+            <h2>Air Quality Calibration</h2>
+            <p>A dataset that includes the registration of various pollutants from a sensor and data from a certified analyzer.</p>
+        </div>
+    </div>
 
+    <div class="project-card">
+        <a class="nav-link" href="/credit_card"> 
+            <img src="images/credit_card/credit_card.png" alt="Credit Card">
+        </a>
+        <div class="project-info">
+            <h2>Predict default of credit card clients</h2>
+            <p>A dataset that includes the credit history and additional information of customers, classified based on whether they defaulted or paid on time.</p>
+        </div>
+    </div>
 
-<div>
-    <a class="nav-link" href="/air-quality"> 
-        <img src="images/air_quality/air_quality.svg" width="200 px" alt="Air Quality">
-    </a>
-    <h2>Air Quality Calibration</h2>
-    <p> A dataset that includes the registration of various pollutants from a sensor and data from a certified analyzer. </p>
-</div>
-
-<div></div>
-    <a class="nav-link" href="/credit_card"> 
-        <img src="images/credit_card/credit_card.png" width="200 px" alt="">
-    </a>
-    <h2>Predict default of credit card clients</h2>
-    <p>A dataset that includes the credit history and additional information of customers, classified based on whether they defaulted or paid on time.</p>
-</div>
-
-
-<div></div>
-    <a class="nav-link" href="/spam_detection"> 
-        <img src="images/spam_detection/spam.svg" width="200 px" alt="">
-    </a>
-    <h2>Spam detection</h2>
-    <p>A dataset of spam messages and legitimate messages.</p>
+    <div class="project-card">
+        <a class="nav-link" href="/spam_detection"> 
+            <img src="images/spam_detection/spam.svg" alt="Spam Detection">
+        </a>
+        <div class="project-info">
+            <h2>Spam detection</h2>
+            <p>A dataset of spam messages and legitimate messages.</p>
+        </div>
+    </div>
 </div>

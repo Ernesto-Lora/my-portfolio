@@ -26,6 +26,14 @@ app.get("/spam_detection",(req, res)=>{
     res.render('spam.ejs');
 })
 
+app.get("/skills",(req, res)=>{
+    res.render('skills.ejs');
+})
+
+app.get("/contact",(req, res)=>{
+    res.render('contact.ejs');
+})
+
 app.listen(port, ()=>{
     console.log(`Listening on port ${port}.`);
 })
