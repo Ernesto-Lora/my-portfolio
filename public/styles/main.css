@@ -1,3 +1,24 @@
+
+.filter-buttons {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.filter-buttons button {
+    margin: 0 10px;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f4f4f4;
+}
+
+.filter-buttons button:hover {
+    background-color: #ddd;
+}
+
+
 .navbar-custom {
     background-color: #242f65;
 }
@@ -86,3 +107,4 @@
     color: #0056b3;
     text-decoration: underline;
 }
+

@@ -47,7 +47,7 @@ p {
 .accuracy {
     font-weight: bold;
     color: #006400;
-    font-size: 1.1em;
+    font-size: 1.4em;
 }
 
 /* Links */
@@ -86,4 +86,35 @@ p:last-of-type {
     text-align: center;
     color: #333333;
     margin-top: 30px;
+}
+
+/* The cifar 10 */
+.layer {
+    background: #f9f9f9;
+    padding: 15px;
+    margin: 10px 0;
+    border-left: 5px solid #007BFF;
+}
+.layer h3 {
+    margin: 0;
+    color: #007BFF;
+}
+.layer p{
+    font-size: 1.1em;
+    margin-bottom: 15px;
+    font-style: normal;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+th, td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+}
+th {
+    background-color: #f4f4f4;
 }

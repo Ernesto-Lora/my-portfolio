@@ -1,0 +1,136 @@
+<%- include("partials/header.ejs", { articleStyles: true }) %>
+
+<div id="container">
+  <h1>Image classification Cifar 10 Dataset </h1>
+<p>  In this project, I tackle image classification using the CIFAR-10 dataset <a href="https://www.cs.toronto.edu/~kriz/cifar.html">[1]</a>, a widely used benchmark dataset consisting of 60,000 small (32×32) color images across 10 classes, including airplanes, cars, birds, and more. While deep learning models, particularly convolutional neural networks (CNNs), have achieved remarkable performance on CIFAR-10, regularization techniques play a crucial role in improving generalization and robustness to overfitting.
+</p>
+<p> My approach is inspired by the paper "Improved Regularization of Convolutional Neural Networks with Cutout"<a href="https://www.researchgate.net/publication/319135616_Improved_Regularization_of_Convolutional_Neural_Networks_with_Cutout">[2]</a> by DeVries and Taylor. Cutout is a simple yet effective data augmentation technique that enhances model robustness by randomly masking out square regions of input images during training. By forcing the model to rely on surrounding visual information, Cutout encourages feature learning that is less dependent on specific pixel locations, thereby improving generalization.
+ </p>
+<p> Through this study, I aim to demonstrate the practical benefits of Cutout in real-world deep learning applications and provide insights into how simple augmentation techniques can significantly boost performance without increasing computational complexity.
+</p>  
+
+<h2>CNN Model architecture: Layer-wise Breakdown</h2>
+
+We will explain the layers that we use:
+
+<div class="layer">
+  <h3>1. Convolutional Layer (Conv2D, 32 filters, 3×3, ReLU, BatchNorm)</h3>
+  <p>The first convolutional layer extracts low-level features such as edges and textures. We use 32 filters with a small 3×3 kernel to capture fine details while preserving spatial structure. Batch normalization is applied to stabilize learning and speed up convergence.</p>
+</div>
+
+<div class="layer">
+  <h3>2. Convolutional Layer (Conv2D, 32 filters, 3×3, ReLU, Padding='same', BatchNorm)</h3>
+  <p>This layer continues feature extraction while maintaining the spatial dimensions using padding. The use of batch normalization ensures smoother gradient flow and prevents internal covariate shift.</p>
+</div>
+
+<div class="layer">
+  <h3>3. MaxPooling Layer (2×2)</h3>
+  <p>Reduces the spatial dimensions by half, retaining the most important features while discarding less useful information. This helps reduce computational complexity and prevents overfitting.</p>
+</div>
+
+<div class="layer">
+  <h3>4. Convolutional Layer (Conv2D, 64 filters, 3×3, ReLU, Padding='same', BatchNorm)</h3>
+  <p>We increase the number of filters to 64 to capture more complex patterns such as shapes and textures. The same 3×3 kernel is used to maintain spatial consistency.</p>
+</div>
+
+<div class="layer">
+  <h3>5. Convolutional Layer (Conv2D, 64 filters, 3×3, ReLU, Padding='same', BatchNorm)</h3>
+  <p>By stacking another convolutional layer, the network learns richer hierarchical features before downsampling.</p>
+</div>
+
+<div class="layer">
+  <h3>6. MaxPooling Layer (2×2)</h3>
+  <p>Again, we reduce spatial dimensions to enhance computational efficiency and make the network invariant to small translations.</p>
+</div>
+
+<div class="layer">
+  <h3>7. Convolutional Layer (Conv2D, 128 filters, 3×3, ReLU, Padding='same', BatchNorm)</h3>
+  <p>Now, we increase the filter count to 128, allowing the model to capture more abstract features like object parts and shapes.</p>
+</div>
+
+<div class="layer">
+  <h3>8. Convolutional Layer (Conv2D, 128 filters, 3×3, ReLU, Padding='same', BatchNorm)</h3>
+  <p>Another convolutional layer at this depth further refines feature extraction by reinforcing hierarchical representations.</p>
+</div>
+
+<div class="layer">
+  <h3>9. MaxPooling Layer (2×2)</h3>
+  <p>Final downsampling step before flattening, reducing spatial size while maintaining essential information.</p>
+</div>
+
+<div class="layer">
+  <h3>10. Flatten Layer</h3>
+  <p>Converts the 2D feature maps into a 1D vector to prepare it for fully connected layers.</p>
+</div>
+
+<div class="layer">
+  <h3>11. Fully Connected Layer (Dense, 1024 neurons, ReLU, Dropout 0.2)</h3>
+  <p>A fully connected layer with 1024 neurons helps in high-level decision making. Dropout (0.2) is applied to prevent overfitting.</p>
+</div>
+
+<div class="layer">
+  <h3>12. Output Layer (Dense, 10 neurons, Softmax)</h3>
+  <p>The final layer consists of 10 neurons, one for each CIFAR-10 class. Softmax activation is used to output class probabilities.</p>
+</div>
+
+<!-- <table>
+    <tr>
+        <th>Layer Type</th>
+        <th>Details</th>
+    </tr>
+    <tr>
+        <td>Conv2D</td>
+        <td>32 filters, 3x3 kernel, ReLU, BatchNorm</td>
+    </tr>
+    <tr>
+        <td>Conv2D</td>
+        <td>32 filters, 3x3 kernel, ReLU, Padding='same', BatchNorm</td>
+    </tr>
+    <tr>
+        <td>MaxPooling2D</td>
+        <td>2x2 Pooling</td>
+    </tr>
+    <tr>
+        <td>Conv2D</td>
+        <td>64 filters, 3x3 kernel, ReLU, Padding='same', BatchNorm</td>
+    </tr>
+    <tr>
+        <td>Conv2D</td>
+        <td>64 filters, 3x3 kernel, ReLU, Padding='same', BatchNorm</td>
+    </tr>
+    <tr>
+        <td>MaxPooling2D</td>
+        <td>2x2 Pooling</td>
+    </tr>
+    <tr>
+        <td>Conv2D</td>
+        <td>128 filters, 3x3 kernel, ReLU, Padding='same', BatchNorm</td>
+    </tr>
+    <tr>
+        <td>Conv2D</td>
+        <td>128 filters, 3x3 kernel, ReLU, Padding='same', BatchNorm</td>
+    </tr>
+    <tr>
+        <td>MaxPooling2D</td>
+        <td>2x2 Pooling</td>
+    </tr>
+    <tr>
+        <td>Flatten</td>
+        <td>Transforms 2D features into 1D</td>
+    </tr>
+    <tr>
+        <td>Dense</td>
+        <td>1024 neurons, ReLU, Dropout (0.2)</td>
+    </tr>
+    <tr>
+        <td>Dense (Output)</td>
+        <td>10 neurons, Softmax (for classification)</td>
+    </tr>
+</table> -->
+<h2>Results and Conclusion</h2>
+<p>After training the model for 200 epochs, we achieved a test set <span style="font-weight: bold;">accuracy of 89%</span> accuracy of 89%. Applying cutoff regularization resulted in improved performance. Below, we visualize the model's performance on several image samples. </p>
+<img src="/images/cifar10/results.svg" alt="">
+Our model performs well, and we believe it has the potential for further refinement to achieve higher accuracy.
+<p>Thanks for reading! 🧑‍💻💕</p>
+</div>
+

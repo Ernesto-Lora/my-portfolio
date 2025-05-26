@@ -7,8 +7,47 @@
     </p>
 </div>
 
-<div class="container project-list">
-    <div class="project-card">
+<div class="filter-buttons">
+    <button onclick="filterProjects('all')">All</button>
+    <button onclick="filterProjects('ml')">Machine Learning</button>
+    <button onclick="filterProjects('de')">Data Engineer</button>
+</div>
+
+
+<div class="container project-list" >
+
+    <div class="project-card" data-category="de">
+        <a class="nav-link" href="/real_time_inventory"> 
+            <img src="images/cifar10/logo.svg" alt="inventory Tracking">
+        </a>
+        <div class="project-info">
+            <h2> Real-Time Inventory Tracking for E-Commerce Using Kafka & Databricks </h2>
+            <p>descripcion</p>
+        </div>
+    </div>
+
+    <div class="project-card" data-category="de">
+        <a class="nav-link" href="/cifar10"> 
+            <img src="images/cifar10/logo.svg" alt="Spam Detection">
+        </a>
+        <div class="project-info">
+            <h2>Image Classification Cifar 10</h2>
+            <p>We have implemented a cut off to the Cifar 10 image dataset.</p>
+        </div>
+    </div>
+
+    <div class="project-card" data-category="ml">
+        <a class="nav-link" href="/spam_detection"> 
+            <img src="images/spam_detection/spam.svg" alt="Spam Detection">
+        </a>
+        <div class="project-info">
+            <h2>Spam detection</h2>
+            <p>A dataset of spam messages and legitimate messages.</p>
+        </div>
+    </div>
+
+
+    <div class="project-card" data-category="ml">
         <a class="nav-link" href="/students"> 
             <img src="images/students_dropout/students_dropout.png" alt="Students">
         </a>
@@ -18,7 +57,7 @@
         </div>
     </div>
 
-    <div class="project-card">
+    <div class="project-card" data-category="ml">
         <a class="nav-link" href="/air-quality"> 
             <img src="images/air_quality/air_quality.svg" alt="Air Quality">
         </a>
@@ -28,7 +67,7 @@
         </div>
     </div>
 
-    <div class="project-card">
+    <div class="project-card" data-category="ml">
         <a class="nav-link" href="/credit_card"> 
             <img src="images/credit_card/credit_card.png" alt="Credit Card">
         </a>
@@ -38,13 +77,20 @@
         </div>
     </div>
 
-    <div class="project-card">
-        <a class="nav-link" href="/spam_detection"> 
-            <img src="images/spam_detection/spam.svg" alt="Spam Detection">
-        </a>
-        <div class="project-info">
-            <h2>Spam detection</h2>
-            <p>A dataset of spam messages and legitimate messages.</p>
-        </div>
-    </div>
 </div>
+
+<script>
+    function filterProjects(category) {
+        const projects = document.querySelectorAll('.project-card');
+
+        projects.forEach(project => {
+            const projectCategory = project.getAttribute('data-category');
+
+            if (category === 'all' || projectCategory === category) {
+                project.style.display = 'block';
+            } else {
+                project.style.display = 'none';
+            }
+        });
+    }
+</script>

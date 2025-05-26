@@ -26,6 +26,14 @@ app.get("/spam_detection",(req, res)=>{
     res.render('spam.ejs');
 })
 
+app.get("/cifar10",(req, res)=>{
+    res.render('cifar10.ejs');
+})
+
+app.get("/real_time_inventory",(req, res)=>{
+    res.render('real_time_inventory.ejs');
+})
+
 app.get("/skills",(req, res)=>{
     res.render('skills.ejs');
 })

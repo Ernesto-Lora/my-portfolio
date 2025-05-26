@@ -1,0 +1,122 @@
+<%- include("partials/header.ejs", { articleStyles: true }) %>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<div id="container">
+    <h1>Real-Time Inventory Tracking for E-Commerce Using Kafka &amp; Databricks</h1>
+</div>
+
+<body>
+  <header class="section">
+    <h1>Real-Time Inventory Tracking for E-Commerce Using Kafka &amp; Databricks</h1>
+  </header>
+
+  <section class="section">
+    <h2>Client Profile</h2>
+    <p><strong>Company:</strong> ShopGlide GmbH (<a href="https://www.bonprix.es/" target="_blank">bonprix.es</a>)<br>
+       <strong>Location:</strong> Berlin, Germany (Remote Engagement)<br>
+       <strong>Industry:</strong> E-Commerce Platform<br>
+       <strong>Size:</strong> ~120 employees<br>
+       <strong>Tech Team:</strong> 12 engineers (5 backend, 3 data, 4 product/design)</p>
+    <p>ShopGlide offers third-party vendor products across fashion, electronics, and home goods. With over 100K SKUs and multiple vendor integrations, they needed real-time inventory accuracy during peak traffic events.</p>
+  </section>
+
+  <section class="section">
+    <h2>Business Challenge</h2>
+    <p>Previously, ShopGlide relied on hourly batch jobs to sync inventory from PostgreSQL to vendor APIs. During high-demand events (e.g., Black Friday), this led to:</p>
+    <ul class="highlight">
+      <li>~10% overselling rate</li>
+      <li>Significant order cancellations, damaging customer trust</li>
+      <li>Estimated annual revenue leakage of $250K</li>
+    </ul>
+    <p>The goal was to design a streaming-based solution that reacts in real time to purchases, cart updates, and vendor stock changes.</p>
+  </section>
+
+  <section class="section">
+    <h2>Solution Overview</h2>
+    <p>We architected and deployed a real-time inventory tracking system leveraging:</p>
+    <ul>
+      <li><strong>Apache Kafka:</strong> Ingest clickstream &amp; vendor events</li>
+      <li><strong>Databricks &amp; Spark Structured Streaming:</strong> Process streams &amp; update state</li>
+      <li><strong>Delta Lake:</strong> Unified batch + streaming storage</li>
+      <li><strong>PostgreSQL:</strong> Legacy backend for bootstrapping</li>
+      <li><strong>Power BI:</strong> Live dashboards &amp; alerts</li>
+    </ul>
+
+    <!-- Suggest placing the architecture diagram below -->
+    <figure>
+      <img class="inline-img" src="path/to/processing-architecture.png" alt="Processing Architecture Diagram">
+      <figcaption>Processing Architecture: Kafka &amp; Databricks Streaming Pipeline</figcaption>
+    </figure>
+  </section>
+
+  <section class="section">
+    <h2>Data Sources &amp; Schemas</h2>
+    <div class="highlight">
+      <h3>Clickstream Events (Kafka Topics)</h3>
+      <pre><code> {
+  "event_type": "add_to_cart",
+  "user_id": "12345",
+  "product_id": "SKU-9981",
+  "timestamp": "2025-03-29T12:01:02Z",
+  "quantity": 2
+} </code></pre>
+    </div>
+
+    <div class="highlight">
+      <h3>Inventory DB (PostgreSQL)</h3>
+      <pre><code> product_id VARCHAR,
+warehouse_id INT,
+quantity_available INT,
+updated_at TIMESTAMP </code></pre>
+    </div>
+
+    <div class="highlight">
+      <h3>Vendor Inventory APIs</h3>
+      <p>Stock levels pulled every 5 mins and normalized into events via a microservice.</p>
+    </div>
+
+    <!-- Suggest placing the data model diagram below -->
+    <figure>
+      <img class="inline-img" src="path/to/data-model-diagram.png" alt="Data Model Diagram">
+      <figcaption>Unified Data Model: Clickstream, Inventory &amp; Vendor Events</figcaption>
+    </figure>
+  </section>
+
+  <section class="section">
+    <h2>Implementation Steps</h2>
+    <ol>
+      <li><strong>Requirements &amp; Architecture Design:</strong> Workshops and sprint planning to define failure points and streaming-first approach.</li>
+      <li><strong>Kafka Setup:</strong>
+        <ul>
+          <li>Defined topics: <code>user_activity</code>, <code>vendor_updates</code>, <code>inventory_changes</code>.</li>
+          <li>Configured Debezium CDC for PostgreSQL &amp; REST-to-Kafka microservice.</li>
+        </ul>
+      </li>
+      <li><strong>Spark Streaming &amp; Delta Lake:</strong>
+        <ul>
+          <li>Real-time inventory decrement on clickstream events.</li>
+          <li>Merge logic for vendor API updates every 5 mins.</li>
+        </ul>
+      </li>
+      <li><strong>Dashboarding:</strong> Power BI live SKU availability, burn rates, and low-stock alerts.</li>
+      <li><strong>Testing &amp; UAT:</strong> Black Friday load simulation using historical replay. Achieved 99.2% accuracy vs. 90% previously.</li>
+    </ol>
+  </section>
+
+  <section class="section">
+    <h2>Impact &amp; Results</h2>
+    <ul class="highlight">
+      <li>Overselling rate reduced from 10% to &lt;1%</li>
+      <li>Annual savings of ~$250K from avoided refunds</li>
+      <li>Order SLA violations cut by 65%</li>
+      <li>Real-time visibility for business stakeholders</li>
+    </ul>
+  </section>
+
+  <footer class="section">
+    <p><em>Project delivered by [Your Name/Team], leveraging modern streaming technologies for real-time insights.</em></p>
+  </footer>
+</body>
+</html>
