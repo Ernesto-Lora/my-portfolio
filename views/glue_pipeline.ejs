@@ -1,0 +1,134 @@
+<%- include("partials/header.ejs", { articleStyles: true }) %>
+
+  <style>
+    .table-container {
+      display: flex;
+      gap: 40px;
+      padding: 20px;
+    }
+
+    .table-box {
+      flex: 1;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f4f4f4;
+      width: 200px;
+    }
+  </style>
+
+<div id="container">
+  <h1>Project: E-Commerce CSV-to-Parquet Optimization</h1>
+
+  <h2>Summary</h2>
+  <p>At an e-commerce company, online retailer of locally sourced gourmet foods and artisanal home goods, targeting Spanish consumers and EU tourists, supplier inventory CSVs were causing slow analytics and schema inconsistencies. I built a pipeline that auto-converts them to Parquet and resolves messy schemas, cutting Athena costs by 60% and speeding up queries. This let the team adjust pricing strategies faster.</p>
+
+<section>
+    <h3>Business Problem</h3>
+  <p>An e-commerce startup receives daily CSV inventory feeds from 20+ small suppliers. While CSV was initially simple, performance and cost issues have compounded as data volume grows.</p>
+  <ul>
+    <li><strong>Slow, expensive queries:</strong> Athena scans hundreds of gigabytes of CSVs, making even simple queries take minutes and cost hundreds of euros per month.</li>
+    <li><strong>Data inconsistencies:</strong> Suppliers use mixed encodings (UTF-8 vs. Windows-1252), varied schemas, and inconsistent date formats.</li>
+  </ul>
+
+</section>
+
+<section>
+  <h3>Current Data Sources & Architecture</h3>
+  <ul>
+    <li><strong>S3 (raw CSV bucket):</strong> Daily CSV drops from suppliers via email or WooCommerce export.</li>
+    <li><strong>PostgreSQL:</strong> Product catalog & customer orders on an EC2 instance (inventory kept separate).</li>
+    <li><strong>Google Sheets:</strong> Manual pricing adjustments by finance team.</li>
+    <li><strong>Google Analytics:</strong> Website behavior tracking.</li>
+  </ul>
+  
+<div class="table-container">
+  <div class="table-box">
+    <h2>Table 1</h2>
+    <table>
+      <tbody>
+        <tr><th>sku</th></tr>
+        <tr><th>product_name</th></tr>
+        <tr><th>current_stock</th></tr>
+        <tr><th>price_eur</th></tr>
+        <tr><th>discount_price</th></tr>
+        <tr><th>reorder_threshold</th></tr>
+        <tr><th>last_delivery_date</th></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-box">
+    <h2>Table 2</h2>
+    <table>
+      <tbody>
+        <tr><th>product_id</th></tr>
+        <tr><th>product_name</th></tr>
+        <tr><th>current_stock</th></tr>
+        <tr><th>price</th></tr>
+        <tr><th>discount_price</th></tr>
+        <tr><th>lead_time_days</th></tr>
+        <tr><th>reorder_threshold</th></tr>
+        <tr><th>last_delivery_date</th></tr>
+        <tr><th>supplier_notes</th></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<p>Sample supplier CSV schema and common inconsistencies.</p>
+
+</section>
+
+<section>
+    <h3>Pain Points</h3>
+  <ul>
+    <li><strong>Query performance:</strong> “Which gourmet products are below reorder threshold?” takes ~3 minutes against 200+ CSVs.</li>
+    <li><strong>Manual fixes:</strong> Staff spend hours correcting encoding and timestamp errors.</li>
+    <li><strong>Cost overruns:</strong> €300+/month in Athena scan fees for inventory data alone.</li>
+    <li><strong>Lost sales & inventory waste:</strong> Delayed markdowns and reorder alerts lead to stockouts (e.g., saffron during holiday season) and overordering.</li>
+  </ul>
+</section>
+
+  
+<section>
+    <h3>Proposed Solution</h3>
+  <p>Implement a serverless ETL pipeline to convert raw CSVs into partitioned Parquet files, leveraging AWS Glue, Lambda, and Spark for scalability and cost efficiency.</p>
+  <figure>
+    <img src="images/glue_pipeline/dataEngProject1.png" alt="ETL processing architecture">
+    <figcaption>Figure 2: Lambda-triggered AWS Glue Jobs ingest CSV to Parquet, with Spark for large batches.</figcaption>
+  </figure>
+
+  <h4>Key Components</h4>
+  <ul>
+    <li><strong>AWS Lambda:</strong> Detects new CSV uploads and invokes Glue jobs.</li>
+    <li><strong>AWS Glue Crawler:</strong> Auto-detects schema variations and updates the Data Catalog.</li>
+    <li><strong>Glue Spark ETL:</strong> Converts CSV to Parquet for files >1 GB in parallel, writing to a partitioned S3 prefix.</li>
+    <li><strong>Partition Strategy:</strong> By <code>product_category</code>, <code>warehouse_location</code>, and <code>date</code> to minimize scan footprint.</li>
+    <li><strong>Athena:</strong> Queries against the optimized Parquet dataset for fast, low-cost analytics.</li>
+  </ul>
+</section>
+
+
+
+  <section>
+    <h3>Business Impact</h3>
+  <ul>
+    <li><strong>Performance:</strong> Query times reduced from minutes to seconds (e.g., low-stock reports in < 5 s).</li>
+    <li><strong>Cost Savings:</strong> Athena scan volume drops by ~90%, cutting inventory-related spend by ~€200/month.</li>
+    <li><strong>Data Quality:</strong> Automated schema discovery and centralized catalog ensure consistency across suppliers.</li>
+  </ul>
+  </section>
+<p>Thanks for reading! 🧑‍💻💕</p>
+</div>
+
