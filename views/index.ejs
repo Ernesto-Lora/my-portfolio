@@ -3,7 +3,7 @@
 <div id="presentation">
     <img id="me" src="images/Ernesto.jpg" alt="Me">
     <p>
-        My name is Ernesto Lora Gonzalez, bachelor's degree in Physics. I am passionate about Machine Learning, especially in applying models to solve real-world problems and implementing them in production environments.
+        My name is Ernesto Lora Gonzalez, bachelor's degree in Physics. Data Engineer with 2+ years of experience developing high-performance data systems in Snowflake, Databricks, and AWS. Experienced in building data pipelines to clean data efficiently, modernizing legacy data pipelines, and contributing to the development of fraud detection systems. My work also involves ensuring data governance through testing and version control, and enabling efficient data-driven decisions.
     </p>
 </div>
 
@@ -16,6 +16,7 @@
 
 <div class="container project-list" >
 
+
     <div class="project-card" data-category="de">
         <a class="nav-link" href="/real_time_inventory"> 
             <img src="images/real_time_inventory/icon.png" alt="inventory Tracking">
@@ -27,12 +28,22 @@
     </div>
 
     <div class="project-card" data-category="de">
+        <a class="nav-link" href="/fintech_ingestion"> 
+            <img src="images/fintech_ingestion/icon.jpg" >
+        </a>
+        <div class="project-info">
+            <h2> Fintech Weather Impact on Loan Delays </h2>
+            <p> A fintech lender suspects weather affects loan repayments in rural areas. They need to correlate weather data with repayment delays (but lack centralized data).</p>
+        </div>
+    </div>
+
+    <div class="project-card" data-category="de">
         <a class="nav-link" href="/glue_pipeline"> 
             <img src="images/glue_pipeline/icon.png" >
         </a>
         <div class="project-info">
             <h2> E-Commerce CSV-to-Parquet Optimization </h2>
-            <p> descripcion</p>
+            <p> Supplier inventory CSVs were causing slow analytics and schema inconsistencies.</p>
         </div>
     </div>
 
@@ -97,10 +108,11 @@
             const projectCategory = project.getAttribute('data-category');
 
             if (category === 'all' || projectCategory === category) {
-                project.style.display = 'block';
+                project.style.display = '';
             } else {
                 project.style.display = 'none';
             }
         });
     }
 </script>
+

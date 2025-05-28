@@ -34,6 +34,10 @@ app.get("/real_time_inventory",(req, res)=>{
     res.render('real_time_inventory.ejs');
 })
 
+app.get("/fintech_ingestion",(req, res)=>{
+    res.render('fintech_ingestion.ejs');
+})
+
 app.get("/glue_pipeline",(req, res)=>{
     res.render('glue_pipeline.ejs');
 })

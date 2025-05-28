@@ -1,99 +1,100 @@
 <%- include("partials/header.ejs", { articleStyles: true }) %>
 
-<!DOCTYPE html>
-<html lang="en">
 
 <div id="container">
-    <h1>Real-Time Inventory Tracking for E-Commerce Using Kafka &amp; Databricks</h1>
 
-    <h2>Summary</h2>    
-  <p>I worked on a project with an e-commerce company that was having a major issue with overselling, especially during big events like Black Friday. They used batch updates for inventory and were losing hundreds of thousands annually due to order cancellations. I helped them build a real-time inventory tracking system using Kafka and Spark Structured Streaming on Databricks.</p>
-  <p>We ingested clickstream events like 'add to cart' and 'purchase' via Kafka, synced with vendor stock updates from APIs, and maintained a live view of inventory using Delta Lake. Spark jobs kept SKU availability up-to-date and ensured only valid orders passed downstream. </p>
-  <p>The result was a reduction in overselling from 10% to under 1%. It was a great example of combining streaming with real-world operations to solve a business-critical issue in a short time frame.</p>
+  <h1> Fintech Weather Impact on Loan Delays</h1>
+  <h3>Summary</h3>
+  <p> At a fintech, I automated the ingestion of weather data via AWS Lambda, streamlined historical processing with Spark on EMR, and integrated everything into Redshift. The resulting QuickSight dashboards revealed that rain increased repayment delays by 20%, directly informing our revised risk models and credit strategies.</p>
 
-  <section class="section">
-    <h2>Business Challenge</h2>
-    <p>Previously, the e-commerce relied on hourly batch jobs to sync inventory from PostgreSQL to vendor APIs. During high-demand events (e.g., Black Friday), this led to:</p>
-    <ul class="highlight">
-      <li>~10% overselling rate</li>
-      <li>Significant order cancellations, damaging customer trust</li>
-    </ul>
-    <p>The goal was to design a streaming-based solution that reacts in real time to purchases, cart updates, and vendor stock changes.</p>
-  </section>
 
-  <section class="section">
-    <h2>Solution Overview</h2>
-    <p>We architected and deployed a real-time inventory tracking system leveraging:</p>
-    <ul>
-      <li><strong>Apache Kafka:</strong> Ingest clickstream &amp; vendor events</li>
-      <li><strong>Databricks &amp; Spark Structured Streaming:</strong> Process streams &amp; update state</li>
-      <li><strong>Delta Lake:</strong> Unified batch + streaming storage</li>
-      <li><strong>PostgreSQL:</strong> Legacy backend for bootstrapping</li>
-    </ul>
 
-    <!-- Suggest placing the architecture diagram below -->
-    <figure>
-      <img class="inline-img" src="/images/real_time_inventory/real_time_inventory.png" alt="Processing Architecture Diagram">
-      <figcaption>Processing Architecture: Kafka &amp; Databricks Streaming Pipeline</figcaption>
-    </figure>
-  </section>
+<section id="business-challenge">
+  <h3>Business Challenge</h3>
+  <p>A fintech suspected that adverse weather events were driving seasonal spikes in loan repayment delays. Manual weather-data collection via CSV downloads was inefficient and error-prone, impeding timely risk assessment.</p>
+</section>
 
-  <section class="section">
-    <h2>Data Sources &amp; Schemas</h2>
-    <div class="highlight">
-      <h3>Clickstream Events (Kafka Topics)</h3>
-      <pre><code> {
-  "event_type": "add_to_cart",
-  "user_id": "12345",
-  "product_id": "SKU-9981",
-  "timestamp": "2025-03-29T12:01:02Z",
-  "quantity": 2
-} </code></pre>
-    </div>
+<section id="objectives">
+  <h3>Objectives</h3>
+  <ul>
+    <li>Automate daily ingestion of critical weather metrics (temperature, rainfall, humidity).</li>
+    <li>Centralize weather and loan repayment data in a scalable data warehouse.</li>
+    <li>Quantify weather’s impact on repayment delays to refine risk models.</li>
+    <li>Deliver interactive dashboards for dynamic insights by region and season.</li>
+  </ul>
+</section>
 
-    <div class="highlight">
-      <h3>Inventory DB (PostgreSQL)</h3>
-      <pre><code> product_id VARCHAR,
-warehouse_id INT,
-quantity_available INT,
-updated_at TIMESTAMP </code></pre>
-    </div>
+<section id="technical-architecture">
+  <h3>Technical Architecture &amp; Data Pipeline</h3>
+  <p>The following diagram illustrates the end-to-end pipeline, from data ingestion to visualization:</p>
+  <!-- Insert processing architecture diagram here -->
+  <figure>
+    <img src="images/fintech_ingestion/project2.png" alt="Data Processing Architecture" />
+    <figcaption>Figure: AWS-based data pipeline for weather and loan data integration.</figcaption>
+  </figure>
 
-    <div class="highlight">
-      <h3>Vendor Inventory APIs</h3>
-      <p>Stock levels pulled every 5 mins and normalized into events via a microservice.</p>
-    </div>
+  <h4>Ingestion</h4>
+  <p>An AWS Lambda function fetches daily weather data via API, with CloudWatch monitoring and alerting for failures.</p>
 
-  
-  </section>
+  <h4>Storage &amp; Processing</h4>
+  <ul>
+    <li><strong>Recent Data:</strong> Streamed into Amazon Redshift alongside loan repayment records.</li>
+    <li><strong>Historical Data:</strong> Processed with Apache Spark on AWS EMR (or AWS Glue) and queried via Redshift Spectrum.</li>
+  </ul>
 
-  <section class="section">
-    <h2>Implementation Steps</h2>
-    <ol>
-      <li><strong>Requirements &amp; Architecture Design:</strong> Workshops and sprint planning to define failure points and streaming-first approach.</li>
-      <li><strong>Kafka Setup:</strong>
-        <ul>
-          <li>Defined topics: <code>user_activity</code>, <code>vendor_updates</code>, <code>inventory_changes</code>.</li>
-          <li>Configured Debezium CDC for PostgreSQL &amp; REST-to-Kafka microservice.</li>
-        </ul>
-      </li>
-      <li><strong>Spark Streaming &amp; Delta Lake:</strong>
-        <ul>
-          <li>Real-time inventory decrement on clickstream events.</li>
-          <li>Merge logic for vendor API updates every 5 mins.</li>
-        </ul>
-      </li>
-    </ol>
-  </section>
+  <h4>Analytics &amp; Visualization</h4>
+  <p>Amazon QuickSight dashboards provide interactive views of correlation analyses, with filters for time range, region, and weather severity.</p>
+</section>
 
-  <section class="section">
-    <h2>Impact &amp; Results</h2>
-    <ul class="highlight">
-      <li>Overselling rate reduced from 10% to &lt;1%</li>
-      
-      <li>Order SLA violations cut by 65%</li>
-    </ul>
-  </section>
+<section id="data-schemas">
+  <h3>Data Schemas</h3>
+  <h4>Weather Data Table</h4>
+  <table>
+    <thead>
+      <tr><th>Column</th><th>Type</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>date</td><td>DATE</td><td>Observation date</td></tr>
+      <tr><td>region_code</td><td>VARCHAR</td><td>Rural area identifier</td></tr>
+      <tr><td>temperature</td><td>FLOAT</td><td>Daily average (°F/°C)</td></tr>
+      <tr><td>rainfall</td><td>FLOAT</td><td>Total precipitation (mm/inches)</td></tr>
+      <tr><td>humidity</td><td>FLOAT</td><td>Average daily humidity (%)</td></tr>
+      <tr><td>weather_event</td><td>VARCHAR</td><td>Notable condition (e.g., "storm")</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Loan Repayment Data Table</h4>
+  <table>
+    <thead>
+      <tr><th>Column</th><th>Type</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>loan_id</td><td>VARCHAR</td><td>Loan identifier</td></tr>
+      <tr><td>customer_id</td><td>VARCHAR</td><td>Borrower identifier</td></tr>
+      <tr><td>loan_amount</td><td>DECIMAL</td><td>Financed amount</td></tr>
+      <tr><td>repayment_due_date</td><td>DATE</td><td>Scheduled date</td></tr>
+      <tr><td>actual_repayment_date</td><td>DATE</td><td>Completed date</td></tr>
+      <tr><td>delay_days</td><td>INTEGER</td><td>Days past due</td></tr>
+      <tr><td>region_code</td><td>VARCHAR</td><td>Matches weather table</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="challenges-and-considerations">
+  <h3>Implementation Challenges</h3>
+  <ul>
+    <li><strong>Data Integration:</strong> Aligning disparate timestamps and region codes, handling missing values and unit conversions.</li>
+    <li><strong>Scalability:</strong> Optimizing Spark/Glue jobs and Redshift Spectrum queries for multi-year datasets.</li>
+    <li><strong>Reliability:</strong> Building robust Lambda functions to manage API rate limits and outages.</li>
+    <li><strong>Analytical Accuracy:</strong> Ensuring statistical significance in correlation analysis and accounting for confounders.</li>
+  </ul>
+</section>
+
+<section id="business-impact">
+  <h3>Business Impact</h3>
+  <p>The automated pipeline enabled AgriLoan Capital to identify that monsoon-season rainfall correlated with a 20% increase in repayment delays. This insight refined underwriting models and informed proactive borrower communications, enhancing risk management and positioning the firm as a climate-aware fintech leader.</p>
+</section>
+
 
   <p>Thanks for reading! 🧑‍💻💕</p>
 </div>
