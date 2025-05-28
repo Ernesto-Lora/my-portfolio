@@ -3,7 +3,6 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 const app = express();
-
 const port = 3000;
 
 // Required if using ES modules
