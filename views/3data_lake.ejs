@@ -1,0 +1,76 @@
+<%- include("partials/header.ejs", { articleStyles: true }) %>
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+  <div id="container">
+    <h1>Small Business Data Lake for Customer Insights</h1>
+
+    <section>
+      <h2>Summary</h2>
+      <p>
+        A small grocery chain in Lima, Perú, struggled to understand the impact of their sales promotions. Their sales, loyalty, and invoice data were siloed across multiple systems, making it nearly impossible to track customer behavior or campaign effectiveness. This project unified their data sources into an S3-based data lake, enabling real-time insights and smarter promotion strategies.
+      </p>
+    </section>
+
+    <section>
+      <h2>Business Challenge</h2>
+      <p>
+        With three stores in working-class districts, the store aimed to compete with traditional corner shops by offering affordable staples and loyalty incentives. However, their data was fragmented:
+      </p>
+      <ul>
+        <li><strong>POS system:</strong> Exported daily sales data as CSV files.</li>
+        <li><strong>Vendor invoices:</strong> Arrived via email as PDFs—many handwritten.</li>
+        <li><strong>Loyalty program:</strong> Stored in a local MySQL database.</li>
+      </ul>
+      <p>
+        The owners couldn’t determine if a promotion actually increased revenue or engagement. For example, a “Free Oil with 5 Visits” campaign caused unintended losses—customers redeemed oil but skipped other higher-margin products. No one realized the impact for weeks.
+      </p>
+    </section>
+
+    <section>
+      <h2>Solution and Architecture</h2>
+      <p>
+        I designed and implemented a unified data platform using AWS services. All incoming data was stored in an Amazon S3 data lake with clearly defined raw zones. Glue and Spark jobs handled cleaning, joining, and extracting structured data—including using NLP for text extraction from invoice PDFs.
+      </p>
+
+      <img src="/images/3data_lake/architecture.png" alt="Architecture Diagram of Data Lake Pipeline for La Barata" />
+
+      <ul>
+        <li><strong>S3 Raw Zones:</strong> Separate folders for POS CSVs, vendor PDFs, and MySQL loyalty dumps.</li>
+        <li><strong>Glue:</strong> Performed standardization, removed nulls, and normalized formats.</li>
+        <li><strong>Spark SQL:</strong> Joined POS and loyalty data to track redemptions and customer patterns.</li>
+        <li><strong>Spark NLP:</strong> Extracted line-item data from invoices—including handwritten entries.</li>
+        <li><strong>Athena:</strong> Queried unified datasets to track signup trends, campaign lift, and margin shifts.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Steps Taken</h2>
+      <ul>
+        <li>Established raw S3 folder structure and ingestion policies.</li>
+        <li>Built Glue jobs to clean POS files and deduplicate loyalty phone numbers.</li>
+        <li>Implemented OCR and Spanish NLP pipeline using Spark NLP for vendor PDFs.</li>
+        <li>Standardized promo names and linked transactions to customer IDs using phone matching logic.</li>
+        <li>Created Athena queries to generate key business insights on promotion effectiveness.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Impact and Results</h2>
+      <p>
+        The store transitioned from reactive guesses to data-driven promotion planning. Key outcomes:
+      </p>
+      <ul>
+        <li>Discovered that “2x1 Rice” drove a 15% increase in new loyalty signups.</li>
+        <li>Identified a 10% margin drop on oil promotions due to cannibalization of higher-margin items.</li>
+        <li>Enabled the accounting team to stop merging spreadsheets manually—saving 10+ hours weekly.</li>
+        <li>Now balances aggressive discounts with cross-promotion of profitable items like snacks and beverages.</li>
+      </ul>
+      <p>
+        This project helped a small Latin American business leverage cloud analytics and natural language processing to compete smarter and optimize every peso spent on promotions.
+      </p>
+    </section>
+  </div>
+</body>
+</html>

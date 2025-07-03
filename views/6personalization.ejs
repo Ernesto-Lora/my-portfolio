@@ -1,0 +1,74 @@
+<%- include("partials/header.ejs", { articleStyles: true }) %>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+  <div id="container">
+    <h1>Real-Time Personalization Engine Using Kafka, AWS Lambda & DynamoDB</h1>
+
+    <section>
+      <h2>Summary</h2>
+      <p>
+        An e-commerce platform, needed to deliver personalized product recommendations in real time. Their existing system caused delays and outdated suggestions, hurting conversions. I worked remotely with their team to build a Kafka-Lambda-DynamoDB based recommendation pipeline that achieved sub-100ms latency and boosted conversions by 18%.
+      </p>
+    </section>
+
+    <section>
+      <h2>Business Challenge</h2>
+      <p>
+        SwiftCart’s personalization engine was entirely batch-driven, using Spark jobs to update recommendations every few hours. This resulted in:
+      </p>
+      <ul>
+        <li>5-second API latency during traffic surges.</li>
+        <li>Stale, irrelevant recommendations during live sessions.</li>
+        <li>Stagnant conversion rates during flash sales and campaigns.</li>
+      </ul>
+      <p>
+        The company wanted a real-time solution to detect user intent and adjust recommendations instantly during shopping sessions.
+      </p>
+    </section>
+
+    <section>
+      <h2>Solution and Architecture</h2>
+      <p>
+        I implemented a real-time personalization engine powered by Kafka, AWS Lambda, and DynamoDB. User clickstream data was streamed, enriched with historical preferences, and served back in under 100ms through a low-latency backend.
+      </p>
+
+      <img src="/images/6personalization/architecture.png" alt="Real-Time Personalization Engine Architecture" />
+
+      <ul>
+        <li><strong>Kafka:</strong> Collected real-time clickstream data (product views, clicks, scrolls).</li>
+        <li><strong>AWS Lambda:</strong> Enriched each event using user profiles, calculated relevance scores, and updated top picks.</li>
+        <li><strong>DynamoDB:</strong> Stored real-time recommendations per user, optimized for fast access via GSIs and DAX.</li>
+        <li><strong>Frontend API:</strong> Queried DynamoDB to fetch personalized results on every page load.</li>
+        <li><strong>Monitoring:</strong> Used CloudWatch, X-Ray, and alarms to maintain high reliability.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Steps Taken</h2>
+      <ul>
+        <li>Developed Kafka consumers with event aggregation logic for interaction pattern detection.</li>
+        <li>Created Lambda functions that merged behavior signals with user profile traits in DynamoDB.</li>
+        <li>Defined scoring rules to rank product recommendations per user and wrote top 5 to DB.</li>
+        <li>Optimized DynamoDB performance using DAX and GSIs for low-latency read/write operations.</li>
+        <li>Implemented CloudWatch and X-Ray monitoring, and rollback mechanisms with blue/green deployment.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Impact and Results</h2>
+      <ul>
+        <li>Recommendation latency dropped from 5 seconds to under 80ms (P95).</li>
+        <li>Conversion rate increased by 18% within two weeks post-deployment.</li>
+        <li>Users saw fresh, relevant product suggestions within seconds of interaction.</li>
+        <li>Built a foundation for future ML-based recommendation integration with SageMaker pipelines.</li>
+      </ul>
+      <p>
+        This project blended real-time stream processing and low-latency backend design to directly enhance user experience and drive measurable business results for a growing e-commerce company.
+      </p>
+    </section>
+  </div>
+</body>
+</html>

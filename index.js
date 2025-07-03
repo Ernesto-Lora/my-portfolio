@@ -54,6 +54,23 @@ app.get("/glue_pipeline",(req, res)=>{
     res.render('glue_pipeline.ejs');
 })
 
+app.get("/traffic_disruptions",(req, res)=>{
+    res.render('2kinesis_rutas.ejs');
+})
+
+app.get("/data_lake1",(req, res)=>{
+    res.render('3data_lake.ejs');
+})
+
+app.get("/fraud_detection",(req, res)=>{
+    res.render('5ml_fraud.ejs');
+})
+
+app.get("/personalization",(req, res)=>{
+    res.render('6personalization.ejs');
+})
+
+
 app.get("/skills",(req, res)=>{
     res.render('skills.ejs');
 })

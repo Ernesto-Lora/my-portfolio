@@ -1,0 +1,83 @@
+<%- include("partials/header.ejs", { articleStyles: true }) %>
+
+ <!DOCTYPE html>
+<html lang="en">
+
+<body>
+  <div id="container">
+    <h1>Logistics Twitter Hashtag Crisis Alerts</h1>
+
+    <section>
+      <h2>Summary</h2>
+      <p>
+        A colombian logistics company was losing revenue due to delivery delays caused by spontaneous protests and blockades across Colombia. The company lacked real-time situational awareness and only discovered disruptions after customers complained. This project created a real-time alerting pipeline using Twitter data and AWS services, enabling drivers to proactively reroute and avoid protest zones.
+      </p>
+    </section>
+
+    <section>
+      <h2>Business Challenge</h2>
+      <p>
+        During the 2021 national strikes, Colombia experienced severe transportation blockades. The company faced significant losses:
+      </p>
+      <ul>
+        <li>Fresh coffee and flower deliveries were spoiled in transit.</li>
+        <li>Urgent medical shipments were delayed.</li>
+        <li>Shopify merchants switched to competitors due to poor reliability.</li>
+      </ul>
+      <p>
+        The company had no real-time way of knowing where protests were occurring. Information arrived too late, typically through:
+      </p>
+      <ul>
+        <li>Customer complaints after hours of delay.</li>
+        <li>Driver WhatsApp messages sent from blocked highways.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Solution and Architecture</h2>
+      <p>
+        To solve this, I built a real-time Twitter ingestion and alert system. It detects protest-related spikes in specific regions and alerts drivers via SMS. A dashboard highlights risk zones for the operations team.
+      </p>
+
+      <img src="/images/2kinesis_rutas/architecture.png" alt="Architecture Diagram of Twitter Hashtag Crisis Alert Pipeline" />
+
+      <ul>
+        <li><strong>Tweet Ingestion:</strong> AWS Kinesis streams filter geolocated tweets containing keywords like #ParoNacional, #BloqueoEnCali, #MedellinProtest.</li>
+        <li><strong>Real-Time Processing:</strong> AWS Lambda functions analyze tweet frequency by region and match against active delivery routes stored in DynamoDB.</li>
+        <li><strong>Alerts:</strong> Twilio sends SMS alerts to drivers when a risk zone is detected on their route.</li>
+        <li><strong>Visualization:</strong> QuickSight shows affected areas on a live map with delivery impact reports.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Steps Taken</h2>
+      <ul>
+        <li>Identified relevant hashtags and implemented keyword filtering logic in Spanish and English.</li>
+        <li>Set up a geofenced Twitter ingestion stream using AWS Kinesis.</li>
+        <li>Developed a Lambda processor that detects abnormal tweet activity and cross-references affected delivery routes.</li>
+        <li>Connected Twilio to dispatch rerouting alerts via SMS to field drivers.</li>
+        <li>Designed a live operations dashboard in QuickSight for real-time monitoring and historical trend analysis.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Impact and Results</h2>
+      <p>
+        The implementation significantly reduced disruption-related losses. Key outcomes include:
+      </p>
+      <ul>
+        <li><strong>35% reduction</strong> in average delay time across protest-affected routes.</li>
+        <li><strong>$8,000/month</strong> saved in spoiled goods and rerouted deliveries.</li>
+        <li>Live dashboard enabled proactive rerouting and daily risk planning.</li>
+        <li>Historical protest data now supports route optimization and driver scheduling.</li>
+      </ul>
+      <p>
+        This solution turned reactive delivery operations into a proactive, data-driven system—preserving both profit and client trust.
+      </p>
+    </section>
+  </div>
+</body>
+</html>
+
+
+

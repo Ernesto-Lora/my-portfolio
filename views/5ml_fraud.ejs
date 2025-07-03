@@ -1,0 +1,76 @@
+<%- include("partials/header.ejs", { articleStyles: true }) %>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+  <div id="container">
+    <h1>Real-Time Fraud Detection ML Pipeline with SageMaker & Databricks</h1>
+
+    <section>
+      <h2>Summary</h2>
+      <p>
+        A fintech startup in Singapore, needed to move beyond legacy fraud detection based on hourly batch jobs. I worked remotely with their ML team to build a real-time machine learning pipeline that detects fraudulent mobile wallet transactions under 300ms using streaming, serverless, and cloud-native tools.
+      </p>
+    </section>
+
+    <section>
+      <h2>Business Challenge</h2>
+      <p>
+        As scaled across Southeast Asia, their fraud risk increased—especially during promotions. Their existing fraud detection system, based on hourly batch processing, had significant limitations:
+      </p>
+      <ul>
+        <li>Only detected ~70% of fraud cases, with 15% missed entirely.</li>
+        <li>High false positive rate (~18%) impacted user experience.</li>
+        <li>Delayed alerts prevented real-time intervention or transaction blocking.</li>
+      </ul>
+      <p>
+        The goal was to replace batch detection with an ML-powered scoring system capable of handling real-time transaction streams with high precision and low latency.
+      </p>
+    </section>
+
+    <section>
+      <h2>Solution and Architecture</h2>
+      <p>
+        We designed a real-time fraud detection pipeline using AWS and Databricks components. Transactions streamed via Kafka were enriched with user behavior and blacklist checks, then scored via a SageMaker ML endpoint—all within milliseconds.
+      </p>
+
+      <img src="/images/5ml_fraud/architecture.png" alt="Fraud Detection ML Pipeline Architecture Diagram" />
+
+      <ul>
+        <li><strong>Kafka:</strong> Ingested real-time transactions from mobile wallet app.</li>
+        <li><strong>Databricks:</strong> Performed batch and streaming feature engineering across 2M+ historical transactions.</li>
+        <li><strong>SageMaker:</strong> Trained and hosted a LightGBM model with 0.94 ROC AUC.</li>
+        <li><strong>Lambda:</strong> Queried DynamoDB + S3 and called SageMaker for sub-300ms scoring.</li>
+        <li><strong>Athena & CloudWatch:</strong> Monitored fraud capture rate, latency, and false positives.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Steps Taken</h2>
+      <ul>
+        <li><strong>Risk Profiling:</strong> Collaborated with client ML engineer to define fraud types (velocity, account takeover, device/IP mismatch).</li>
+        <li><strong>Data Ingestion:</strong> Pulled and labeled six months of transactions and behavioral logs.</li>
+        <li><strong>Feature Engineering:</strong> Created time-based and categorical features using PySpark in Databricks.</li>
+        <li><strong>Model Training:</strong> Trained and tuned XGBoost and LightGBM models; LightGBM selected for production.</li>
+        <li><strong>Real-Time Pipeline:</strong> Lambda triggered by Kafka events enriched data from DynamoDB/S3 and scored via SageMaker.</li>
+        <li><strong>Monitoring & Feedback:</strong> Logged predictions and outcomes to Athena for continuous retraining and dashboard tracking.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Impact and Results</h2>
+      <ul>
+        <li>Increased fraud detection recall from 70% to 95%.</li>
+        <li>Reduced false positive rate from 18% to 5%.</li>
+        <li>Scoring latency averaged 280ms—suitable for real-time payment decisions.</li>
+        <li>Estimated $1.2M in annual fraud loss prevention.</li>
+        <li>Enabled retraining every 2 weeks based on new fraud trends.</li>
+      </ul>
+      <p>
+        This solution combined low-latency architecture with advanced ML modeling to enable PaySure to respond to fraud threats in real time—improving both security and customer trust.
+      </p>
+    </section>
+  </div>
+</body>
+</html>
